@@ -1,0 +1,11 @@
+/* imgDivCaros */
+.imgDivCaros{
+    height: calc(100vh - 70px);
+    width: 100%;
+}
+
+#carouselImg{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

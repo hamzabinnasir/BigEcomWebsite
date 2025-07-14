@@ -1,0 +1,14 @@
+/* navList */
+.underLine{
+    border: 1px solid red;
+}
+
+/* NavprofilePic */
+.NavprofilePic, .profilePicImgDiv{
+    cursor: pointer;
+}
+
+/* navMenuBox */
+.navMenuBox p{
+    cursor: pointer;
+}

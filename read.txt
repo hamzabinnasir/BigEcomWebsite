@@ -1,0 +1,287 @@
+PORT=4000
+MONGODB_URI="mongodb+srv://myselfhamzanasir:hamzamongo123@cluster0.y4j41.mongodb.net/"
+CLOUDINARY_NAME="dhocmj6yo"
+CLOUDINARY_API_KEY="186861698778653"
+CLOUDINARY_SECRET_KEY="Fyd58IRUe6a7uNU8mUwuHYb1uEg"
+JWT_SECRET="hamza1234"
+
+
+
+
+** Remaining (Backend) **
+required true wagera rehta hai
+cart model main default wagera check krna hai
+productSize or productColor model check krna hai
+default picture rehti hai lagana
+resolve the database issue when creating new one
+reolve the issue of unique key username from database
+productSize model main required: true dalna hai ya nhin ye bhi dekhna hai abhi
+getSingleProduct, update and deleteProduct ki userId req.params se.
+set all the status of the corresponding requests.
+Check the use of delete request to delete a product.
+add the role admin property in Schema.
+cartData populate krne se user ki sari details bhi a rhi hain
+remove from cart ki api bhi bnani hai
+
+
+
+** Remaining (Frontend) **
+Create Hero Section
+nav dialogue box
+apis ko api k folder main rkhne ka sochein gay
+productGallery ka right left wala function rehta hai
+Product Category page pr select element khud bnani hai
+Implement the pagination
+Product Category Page ki input fields main label lgana hai to lga dena
+Try to use components based approach in Product Category Page
+size ka model bnana pare ga
+useState ka object main use krna pare ga
+soch rha hoon search bhi dal doon
+SingleProduct page k liay jo thrd level category data hai us main highlights ka data bhi dalna hai
+handleGetCartItems ki Api Cart Page or SingleProductPage main use hui hai to us ko elehda folder main rkhna pare ga
+getAllCartItems ki Api ko ShopContextProvider.jsx main rkh dein gay
+Agar quantity 0 to disable ki functionality lgani hai
+progress model bhi bnana hai
+remove NaN from console
+** Pending Pages **
+RatingsPage, filterOrderPage and Api
+userSummaryComponent
+frontend login, register
+updateCartQuantity in useEffect
+singleOrder progress functionality
+database main frontend or admin se lower case main data bhejna hai
+update the status when the user placed the order and when the user succedded hi payment
+database k andar data lower case main store krwana hai
+value prop on imput field should be null ka error khatam krna hai checkout page se
+singleOrderPage, orderDetailsPage or orderDetailsProgressPage ki single order ki api shopContextProvider.jsx main rkh deni hai
+product k pass sizes ka array ho ga
+singleProduct ki api bhi singleProduct.jsx or singleProductPage or rateProductPage se utha kr shopContextProvider.jsx main rkh deni hai
+Agar order k andar cartProducts empty ho gay to suitable decisions lein gay
+
+
+** Summary remaining from frontend **
+##
+CSS Apply
+Order Status update
+login register and protect routes
+singleProduct Page pr current user ko sari ratingsAndReviews
+kuch components bnanay walay rehtay hain
+empty cart se order nhin ho ga
+size ka array database main bnain gay
+navbar main category add ho jani chahiay jb koi new category add ho to 
+navbar main dialog box wagera bnana hai
+productCategory page main select field khud bnani hai
+forntend or admin ko different ports pr chalana hai
+cancel order ki api
+expected date wala component bna lena
+Search System
+navContent main labelItem k sath value bhi add kr dena
+AddressCard ka component
+##
+___________________________________________________________________________________
+
+
+** Admin Goes here **
+##
+Admin ki Navbar main notifications wagera ka purpose dekhna hai
+Admin main add product main validations dal skte hain jesay k automatically discount price set kr dena or total quantity ki base pr quantity divide krna
+
+
+
+** Size Validation **
+##
+const handleSize = (event, index) => {
+    const { name, value } = event.target;
+
+    setSize(prevSize => {
+        const updatedSizes = [...prevSize];
+
+        // Optional: prevent duplicate size names (case insensitive)
+        if (name === "sizeName") {
+            const isDuplicate = updatedSizes.some((s, i) =>
+                i !== index && s.sizeName.toLowerCase() === value.toLowerCase()
+            );
+            if (isDuplicate) {
+                toast.warning("Size name already exists!");
+                return prevSize; // Don't update state if duplicate
+            }
+        }
+
+        updatedSizes[index] = {
+            ...updatedSizes[index],
+            [name]: name === "sizeQuantity" ? Number(value) : value
+        };
+
+        return updatedSizes;
+    });
+};
+##
+
+
+
+** Poor Logic **
+##
+    // useEffect(() => {
+    //     const handleSize = () => {
+    //         const newSizes = [];
+    //         let totalSizeQuantity = 0;
+    //         size.forEach((sizeItem) =>{
+    //             totalSizeQuantity += sizeItem.quantity;
+    //         })
+
+    //         if(quantity === 0){
+    //             if(totalSizeQuantity < quantity){
+    //                 if(size.includes(sizeName1)){
+    //                     newSizes.push({
+    //                         sizeQuantity: sizeQuantity1
+    //                     })
+    //                 }else{
+    //                     newSizes.push({
+    //                         sizeName: sizeName1,
+    //                         sizeQuantity: sizeQuantity1
+    //                     });
+    //                 }
+    
+    //                 if(size.includes(sizeName2)){
+    //                     newSizes.push({
+    //                         sizeQuantity: sizeQuantity2,
+    //                     })
+    //                 }else{
+    //                     newSizes.push({
+    //                         sizeName: sizeName2,
+    //                         sizeQuantity: sizeQuantity2
+    //                     });
+    //                 }
+        
+    //                 if(size.includes(sizeName3)){
+    //                     newSizes.push({
+    //                         sizeQuantity: sizeQuantity3,
+    //                     })
+    //                 }else{
+    //                     newSizes.push({
+    //                         sizeName: sizeName3,
+    //                         sizeQuantity: sizeQuantity3
+    //                     });
+    //                 }
+    
+    //                 if (JSON.stringify(newSizes) !== JSON.stringify(size)) {
+    //                     setSize(newSizes);
+    //                 }
+    //             }else{
+    //                 toast.error("Size quantity must be lesser than quantity")
+    //             }
+    //         }else{
+    //             toast.error("Set the product quantity first");
+    //         }
+    //     };
+
+    //     handleSize();
+    // }, [sizeName1, sizeName2, sizeName3, sizeQuantity1, sizeQuantity2, sizeQuantity3, size, quantity]);|
+    ##
+
+____________________________________________________________________________________
+** myLogics logic (setColor logic) **
+##
+ 1. const handleColor = (e) =>{
+        let value = e.target.value;
+        let checked = e.target.checked;
+        if(checked){
+            if(!color.includes(value)){
+                setColor([...color ,value]);
+            }
+        }else{
+            setColor(color.filter((c) => c !== value));
+        }
+    }
+
+
+        useEffect(() => {
+        console.log(color);
+    }, [color]);
+
+
+
+
+
+    2. // const totalOrderPrice = (orderCartProducts) => {
+    //     let totalOrderPrice = 0;
+    //     orderCartProducts.forEach((item) =>{
+    //         totalOrderPrice += item?.cartProducts?.price || 0;
+    //     })
+    //     return totalOrderPrice;
+    // }
+    ##
+
+________________________________________________________________________
+    ** Poor Logic **
+    ##   
+   useEffect(() => {
+        let ratingsSum = 0;
+        let sizesArr = [];
+        if (singleProduct && singleProduct.ratingsAndReviews && singleProduct.ratingsAndReviews.length > 0) {
+            let excProArr = [];
+            let veryGoodProArr = [];
+            let goodProArr = [];
+            let avgProArr = [];
+            let poorProArr = [];
+            singleProduct.ratingsAndReviews.forEach((review) => {
+                ratingsSum += review.ratings;
+                switch (review.ratings) {
+                    case 5:
+                        excProArr.push(review);
+                        break;
+                    case 4:
+                        veryGoodProArr.push(review);
+                        break;
+                    case 3:
+                        goodProArr.push(review);
+                        break;
+                    case 2:
+                        avgProArr.push(review);
+                        break;
+                    case 1:
+                        poorProArr.push(review);
+                        break;
+                    default:
+                        break;
+
+                }
+            });
+            setRateSum(ratingsSum);
+            setRatingAvg(rateSum / singleProduct.ratingsAndReviews.length);
+            sizesArr[0] = singleProduct.sizeName1;
+            sizesArr[1] = singleProduct.sizeName2;
+            sizesArr[2] = singleProduct.sizeName3;
+            setSizeArr(sizesArr);
+            console.log(sizeArr);
+            setTotalReviews(singleProduct.ratingsAndReviews.length);
+            setBarData([{ label: 'Excellent', value: excProArr.length, color: '#4caf50' },
+            { label: 'Very Good', value: veryGoodProArr.length, color: '#2e7d32' },
+            { label: 'Good', value: goodProArr.length, color: '#ffeb3b' },
+            { label: 'Average', value: avgProArr.length, color: '#8d6e63' },
+            { label: 'Poor', value: poorProArr.length, color: '#f44336' }]);
+        }
+    }, [rateSum, singleProduct]);
+    ##
+    ______________________________________________________________________________________
+        ** Important Notes **
+    req.body when post request and req.params when get request
+
+
+
+
+
+** Remaining from frontend **
+## orderStatus Updation
+## payment gateways
+## protected routes
+## CSS
+## 3 payment gateways if
+## Add Jarvis
+## Text to image convertor
+## Address card adding
+
+** Remaining from Admin **
+## Update product if
+## Customers route
+## Dashboard and other routes creation

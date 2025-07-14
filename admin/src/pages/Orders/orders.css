@@ -1,0 +1,11 @@
+/* allOrdersImgsDiv */
+.allOrdersImgsDiv img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+/* statusPopup */
+.statusPopup p{
+    cursor: pointer;
+}
